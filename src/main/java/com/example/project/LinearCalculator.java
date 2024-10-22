@@ -1,8 +1,7 @@
 package com.example.project;
 public class LinearCalculator{
-    //FOR EXTRA CREDIT 
-    //you should copy and paste all of your code from the LinearCalculator class
-    // but NOT printInfo(). Please update it below
+    //INSTANCE VARIABLES 
+    //4 INTEGER variables (name them: x1,x2,y1,y2) 
 
     private int x1;
     private int x2;
@@ -33,6 +32,7 @@ public class LinearCalculator{
         y1 = Integer.parseInt(secondCoord1);
         y2 = Integer.parseInt(secondCoord2);
 
+        //To use for undefined slope
         isUndefined = false;
         if((x2-x1) == 0){
             isUndefined = true;
@@ -66,7 +66,9 @@ public class LinearCalculator{
     //distance() -> returns a double. 
     //calculates the distance between the two points to the nearest HUNDREDTH and returns the value.
     public double distance(){
-        double distanceFormula = Math.sqrt(Math.pow((y2-y1),2) + Math.pow((x2-x1),2)); //FIX NEGATIVES
+        //using distance formula Sqrt of (y2-y1)^2 + (x2-x1)^2
+        //using roundedToHundredth
+        double distanceFormula = Math.sqrt(Math.pow((y2-y1),2) + Math.pow((x2-x1),2)); 
         distanceFormula = roundedToHundredth(distanceFormula); //USE METHOD AT BOTTOM
         return distanceFormula;
     }
@@ -74,9 +76,11 @@ public class LinearCalculator{
     //calculates the y intercept of the equation and returns the value to the nearest HUNDREDTH
     //if y-int if undefined, should return -999.99
     public double yInt(){
+        //using isUndefined variable if the yInt is undefined
         if(isUndefined==true){
             return -999.99;
         }
+        //yIntercept formula y-mx=b
         double yIntercept = roundedToHundredth(y1 - (slope()*x1));
         return yIntercept;
     }
@@ -86,9 +90,11 @@ public class LinearCalculator{
     //if slope is undefined, should return -999.99
     public double slope(){
         double slope1; 
+        //isUndefined variable for undefined slope
         if (isUndefined == true) {
             return -999.99;    
         } else {
+            //slope formula (y2-y1)/(x2-x1)
             slope1 = roundedToHundredth((double) (y2-y1) / (x2-x1)); 
         }
          return slope1;
@@ -103,6 +109,7 @@ public class LinearCalculator{
         if (isUndefined == true){
             equation1 = "undefined";
         } else {
+            //Putting whole equation together; y=mx+b
             if(yInt()==0){
                 equation1 += "y=" + slope() + "x";
             } else if(yInt()<0){
@@ -121,6 +128,7 @@ public class LinearCalculator{
     //roundedToHundredth(double x)-> returns double
     //calculates the input to the nearest hundredth and returns that value
     public double roundedToHundredth(double x){
+        //rounding to nearest 100th
         double round = Math.round(x*100.00) /100.00;
         return round;
     }
@@ -129,15 +137,16 @@ public class LinearCalculator{
     //You will need to concatenate to the string 
     //the results from findSymmetry() and Midpoint()
     public String printInfo(){
+        //updated printInfo
         String str = "The two points are: (" + x1 + "," + y1  + ")";
         str += " and " + "(" + x2 + "," + y2 + ")";
         str += "\nThe equation of the line between these points is: " + equation() ;
         str += "\nThe slope of this line is: " + slope();
         str += "\nThe y-intercept of the line is: " + yInt();
         str += "\nThe distance between the two points is: " + distance();
+        //ADD
         str += "\n" + findSymmetry();
         str += "\n" + Midpoint();
-        //ADD
         return str;
     }
 
@@ -149,12 +158,14 @@ public class LinearCalculator{
     //return "Symmetric about the origin";
     //return "No symmetry";
     public String findSymmetry(){
-
+        //X-Symmetry if x1 is equal to x2
         if(x2==x1){
             return "Symmetric about the x-axis";
         } else if(y2==y1){
+            //Y-Symmetry is y1 is equal to y2
             return "Symmetric about the y-axis";
         } else if((x2==-x1) && (y2==-y1)){
+            //origin symmetry if (a,b) = (-a,-b)
             return "Symmetric about the origin";
         } else{
             return "No symmetry";
@@ -166,6 +177,7 @@ public class LinearCalculator{
     //the method should calculate the midpoint between the two points
     //it should return "The midpoint of this line is: (0,0)";
     public String Midpoint(){
+        //using midpoint formula (((x2+x1)/2) , ((y2+y1)/2))
         double midpointX = (x1+x2)/2;
         double midpointY = (y1+y2)/2;
         return "The midpoint of this line is: (" + midpointX + "," + midpointY + ")";
